@@ -11,7 +11,7 @@ from keras.losses import categorical_crossentropy
 from keras.optimizers import Adam
 import numpy as np
 
-from art.attacks.evasion import FastGradientMethod
+from art.attacks.evasion import ProjectedGradientDescent
 from art.estimators.classification import KerasClassifier
 from art.utils import load_mnist
 
@@ -47,7 +47,7 @@ accuracy = np.sum(np.argmax(predictions, axis=1) == np.argmax(y_test, axis=1)) /
 print("Accuracy on benign test examples: {}%".format(accuracy * 100))
 
 # Step 6: Generate adversarial test examples
-attack = FastGradientMethod(estimator=classifier, eps=0.2)
+attack = ProjectedGradientDescent(estimator=classifier, eps=0.2)
 x_test_adv = attack.generate(x=x_test)
 
 # Step 7: Evaluate the ART classifier on adversarial test examples
